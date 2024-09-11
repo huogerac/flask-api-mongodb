@@ -24,6 +24,10 @@ pytest-dotenv = "^0.5.2"
 black = "^24.8.0"
 flake8 = "^7.1.1"
 flake8-pyproject = "^1.2.3"
+pytest-cov = "^5.0.0"
+taskipy = "^1.13.0"
+flask-shell-ipython = "^0.5.3"
+typer = "^0.12.5"
 
 [tool.black]
 line-length = 120
@@ -44,3 +48,15 @@ build-backend = "poetry.core.masonry.api"
 addopts = "--exitfirst -vv"
 env_override_existing_values = 1
 env_files = [".env.tests"]
+
+[tool.taskipy.tasks]
+active = {cmd = "poetry shell", help = "Active the virtualenv."}
+format = {cmd = "black starwarsguru", help = "Format the code."}
+lint = {cmd = "flake8 .", help = "Run the linter to check PEP8."}
+test = {cmd = "pytest", help = "Run the tests and fail in the first one."}
+test-cov = {cmd = "pytest --cov=starwarsguru", help = "Run the tests and give us the test coverage report."}
+runserver = {cmd = "flask --app starwarsguru/app run", help = "Run the flask api server"}
+shell = {cmd = "flask --app starwarsguru/app shell", help = "Run the interactive shell"}
+dbshell = {cmd = "docker compose exec mongo mongosh 'mongodb://dbroot:MongoDB!@localhost:27017'", help = "Run the mongo shell"}
+up = {cmd = "docker compose up -d --build", help = "Up the services containers."}
+down = {cmd = "docker compose down", help = "Down the services containers."}

@@ -1,4 +1,5 @@
 from unittest.mock import ANY
+from bson import ObjectId
 from starwarsguru.models.planets import Planet
 
 
@@ -60,13 +61,14 @@ def test_should_create_a_new_film_with_an_existing_planet(client):
 
 def test_should_return_error_creating_film_with_invalid_planet_id(client):
 
+    planet_id_not_registered = str(ObjectId())
     payload = {
         "title": "Return of the Jedi",
         "director": "Richard Marquand",
         "release_date": "1983-05-25",
-        "planets": ["0_1nvalid_planet_ID_9"],
+        "planets": [f"{planet_id_not_registered}"],
     }
     resp = client.post("/api/films/", json=payload)
 
     assert resp.status_code == 422
-    assert resp.json == {"message": "Planet not exists: '0_1nvalid_planet_ID_9'"}
+    assert resp.json == {"message": f"Planet not exists: '{planet_id_not_registered}'"}

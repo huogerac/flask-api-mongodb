@@ -22,6 +22,7 @@ def test_should_update_existing_planet(client):
         "climate": "arid",
         "diameter": 10465,
         "population": 200000,
+        "films": [],
         "created_at": ANY,
         "edited_at": ANY,
     }

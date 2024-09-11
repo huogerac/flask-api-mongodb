@@ -7,7 +7,7 @@ def test_should_return_an_empty_films_list(client):
 
     assert resp.status_code == 200
     assert resp.json == {
-        "films": [],
+        "results": [],
     }
 
 
@@ -30,9 +30,9 @@ def test_should_return_all_films_ordered_by_released_date(client):
     resp = client.get("/api/films/")
 
     assert resp.status_code == 200
-    assert len(resp.json["films"]) == 2
+    assert len(resp.json["results"]) == 2
     assert resp.json == {
-        "films": [
+        "results": [
             {
                 "id": ANY,
                 "title": "A New Hope",

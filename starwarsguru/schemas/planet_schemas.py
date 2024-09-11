@@ -124,6 +124,10 @@ class Planet(PlanetPlain):
     )
 
 
+class PlanetList(BaseModel):
+    results: List[Planet]
+
+
 class FilmIn(BaseModel):
     title: str = Field()
     director: str = Field()
@@ -172,3 +176,7 @@ class Film(FilmPlain):
             }
         },
     )
+
+
+class FilmList(BaseModel):
+    results: List[Film]

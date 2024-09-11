@@ -1,7 +1,7 @@
 from flask_openapi3 import APIBlueprint
 from flask_openapi3 import Tag
 
-from ..schemas.planet_schemas import Film, FilmIn, Error, IdPath
+from ..schemas.planet_schemas import Film, FilmIn, FilmList, Error, IdPath
 from ..services import films_svc
 
 tag = Tag(name="films", description="Films")
@@ -15,10 +15,22 @@ api = APIBlueprint(
 )
 
 
-@api.get("/")
+@api.get(
+    "/",
+    responses={200: FilmList},
+)
 def get_films():
     film_list = films_svc.list_films()
-    return {"films": film_list}
+    return {"results": film_list}
+
+
+@api.get(
+    "/<id>",
+    responses={200: Film, 422: Error},
+)
+def get_film_by_id(path: IdPath):
+    film = films_svc.get_film(path.id)
+    return film, 200
 
 
 @api.post(
@@ -36,4 +48,13 @@ def create_planet(body: FilmIn):
 )
 def update_film(path: IdPath, body: FilmIn):
     film = films_svc.update_film(path.id, body.title, body.director, body.release_date, body.planets)
+    return film, 200
+
+
+@api.delete(
+    "/<id>",
+    responses={200: Film, 422: Error},
+)
+def delete_film(path: IdPath):
+    film = films_svc.delete_film(path.id)
     return film, 200

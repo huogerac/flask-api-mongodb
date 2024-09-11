@@ -3,6 +3,7 @@ from flask import jsonify
 from flask_openapi3 import OpenAPI, Info
 from flask.wrappers import Response as FlaskResponse
 from pydantic_core import ValidationError
+from mongoengine.errors import ValidationError as MongoValidationError
 from starwarsguru import configuration
 from starwarsguru import database
 from starwarsguru.api.base import api as api_base
@@ -29,6 +30,12 @@ def init_api_error_handling(app: OpenAPI):
         error = {"message": ", ".join([f"{msg['msg']} {msg['loc']}" for msg in error_json])}
         return jsonify(error), 400
 
+    @app.errorhandler(MongoValidationError)
+    def handle_mongo_validation_errors(error):
+        """Trata por exemplo ObjectID inválido"""
+        error = {"message": str(error)}
+        return jsonify(error), 422
+
     @app.errorhandler(BusinessError)
     def handle_business_error(error):
         """Camada de SERVICE lança este tipo de exception"""
@@ -49,7 +56,7 @@ def create_app():
         __name__,
         info=info,
         validation_error_callback=validation_error_callback,
-        validation_error_status=400,
+        validation_error_status=422,
     )
     configuration.init_app(app)
     init_api_error_handling(app)

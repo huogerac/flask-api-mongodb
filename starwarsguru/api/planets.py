@@ -1,7 +1,7 @@
 from flask_openapi3 import APIBlueprint
 from flask_openapi3 import Tag
 
-from ..schemas.planet_schemas import Planet, PlanetIn, Error, IdPath
+from ..schemas.planet_schemas import Planet, PlanetIn, PlanetList, Error, IdPath
 from ..services import planet_svc
 
 tag = Tag(name="planets", description="Planets")
@@ -15,9 +15,22 @@ api = APIBlueprint(
 )
 
 
-@api.get("/")
+@api.get(
+    "/",
+    responses={200: PlanetList},
+)
 def get_planets():
-    return {"planets": []}
+    planet_list = planet_svc.list_planets()
+    return {"results": planet_list}
+
+
+@api.get(
+    "/<id>",
+    responses={200: Planet, 422: Error},
+)
+def get_planet_by_id(path: IdPath):
+    planet = planet_svc.get_planet(path.id)
+    return planet, 200
 
 
 @api.post(
@@ -35,4 +48,13 @@ def create_planet(body: PlanetIn):
 )
 def update_planet(path: IdPath, body: PlanetIn):
     planet = planet_svc.update_planet(path.id, body.name, body.diameter, body.climate, body.population)
+    return planet, 200
+
+
+@api.delete(
+    "/<id>",
+    responses={200: Planet, 422: Error},
+)
+def delete_planet(path: IdPath):
+    planet = planet_svc.delete_planet(path.id)
     return planet, 200

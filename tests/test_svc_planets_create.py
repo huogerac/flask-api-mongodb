@@ -16,6 +16,7 @@ def test_should_create_a_new_planet(db):
         "diameter": 10,
         "climate": "Wind",
         "population": 42,
+        "films": [],
         "created_at": ANY,
         "edited_at": ANY,
     }

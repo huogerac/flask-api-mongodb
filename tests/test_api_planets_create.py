@@ -17,6 +17,7 @@ def test_should_create_a_new_planet(client):
         "climate": "arid",
         "diameter": 10465,
         "population": 200000,
+        "films": [],
         "created_at": ANY,
         "edited_at": ANY,
     }

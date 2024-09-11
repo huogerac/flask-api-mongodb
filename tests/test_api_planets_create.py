@@ -42,34 +42,17 @@ def test_should_return_error_for_missing_name(client):
         "population": 200000,
     }
     resp = client.post("/api/planets/", json=payload)
-    errors = [("".join(item["loc"]), item["msg"]) for item in resp.json]
 
-    assert resp.status_code == 422
-    assert errors == [("name", "Field required")]
+    assert resp.status_code == 400
+    assert resp.json == {"message": "Field required ['name']"}
 
 
 def test_should_return_error_for_an_empty_payload(client):
     payload = {}
     resp = client.post("/api/planets/", json=payload)
 
-    errors = [("".join(item["loc"]), item["msg"]) for item in resp.json]
-
-    assert resp.status_code == 422
-    assert errors == [
-        (
-            "name",
-            "Field required",
-        ),
-        (
-            "diameter",
-            "Field required",
-        ),
-        (
-            "climate",
-            "Field required",
-        ),
-        (
-            "population",
-            "Field required",
-        ),
-    ]
+    assert resp.status_code == 400
+    assert resp.json == {
+        "message": "Field required ['name'], Field required ['diameter'], "
+        + "Field required ['climate'], Field required ['population']"
+    }

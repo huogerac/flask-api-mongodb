@@ -1,6 +1,6 @@
 import pytest
 from starwarsguru.app import create_app
-from starwarsguru.models.planets import Planet
+from starwarsguru.models.planets import Planet, Film
 
 
 @pytest.fixture
@@ -9,6 +9,7 @@ def app():
     with app.app_context():
         yield app
         Planet.objects.delete()
+        Film.objects.delete()
 
 
 @pytest.fixture()

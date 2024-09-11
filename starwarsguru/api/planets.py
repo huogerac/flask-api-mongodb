@@ -22,7 +22,7 @@ def get_planets():
 
 @api.post(
     "/",
-    responses={201: Planet, 409: Error, 422: Error},
+    responses={201: Planet, 400: Error, 409: Error, 422: Error},
 )
 def create_planet(body: PlanetIn):
     planet = planet_svc.create_planet(body.name, body.diameter, body.climate, body.population)
@@ -31,7 +31,7 @@ def create_planet(body: PlanetIn):
 
 @api.put(
     "/<id>",
-    responses={200: Planet, 409: Error, 422: Error},
+    responses={200: Planet, 400: Error, 409: Error, 422: Error},
 )
 def update_planet(path: IdPath, body: PlanetIn):
     planet = planet_svc.update_planet(path.id, body.name, body.diameter, body.climate, body.population)

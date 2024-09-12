@@ -21,7 +21,7 @@ class Planet(db.Document):
             "name": self.name,
             "diameter": self.diameter,
             "climate": self.climate,
-            "films": [item.to_json() for item in self.films] if showFilms else None,
+            "films": [item.to_dict_json(showPlanets=False) for item in self.films] if showFilms else None,
             "population": self.population,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "edited_at": self.edited_at.isoformat() if self.edited_at else None,

@@ -73,3 +73,14 @@ def test_should_update_the_relation_from_planet_and_film(db):
 
     # iii)
     Planet.objects.get(id=str(planet_two.id)).films[0].id == new_film['id']
+
+
+def test_should_insert_planet_just_once(db):
+    planet_one = Planet.objects.create(name="Planet One", climate="Hard")
+
+    # Passando o mesmo filme duas vezes!
+    film_planets = [str(planet_one.id), str(planet_one.id)]
+    new_film = films_svc.create_film("Film with the same planet twice", "D", "2024", film_planets)
+
+    # THEN
+    assert len(new_film['planets']) == 1

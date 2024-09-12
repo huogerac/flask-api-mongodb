@@ -51,9 +51,9 @@ def init_api_error_handling(app: OpenAPI):
 
 def init_templates(app):
 
-    @app.route('/')
+    @app.route("/")
     def home():
-        return render_template('home.html')
+        return render_template("home.html")
 
 
 def create_app():

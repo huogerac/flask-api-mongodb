@@ -9,6 +9,21 @@
 - [✅] Subir mongo com docker-compose
 - [✅] Criar tests de API do Planet
 - [✅] Criar services Planet para salvar na collection do mongo
+- [  ] Deploy
+- [  ] Testar o Dockerfile do backend e adicionar no compose
+- [  ] Fazer um teste de carga usando k6
+- [  ] CI & CD
+- [  ] Proteger as rotas POST/PUT/DELETE
+- [  ] Paginação nas rotas de listas
+- [  ] Adicionar Rate Limit
+
+
+## Problemas conhecidos
+
+- Deletar Planeta com referências de films
+    - Solução 1: Remover as referências do film antes de apagar o Planeta
+    - Solução 2: Só permitir deletar Planeta com films: []
+- Mesma coisa para o deletar Film com referências
 
 
 ## 📂 Organização
@@ -41,6 +56,7 @@ classDiagram
 
 ```
 
+
 ## ⭐ Stack & Motivações
 
 - **Flask | MongoDB | MongoEngine**: Utilizar o que estava no desafio + Aprender Mongo
@@ -53,12 +69,14 @@ classDiagram
 
 ## 🏁 Iniciando
 
+
 ### Requisitos:
 
 - Com docker: Teoricamente, apenas docker e docker compose
 - "Sem docker": Subir apenas o banco no docker e flask local
     - Python 3.11 (Não testei em outras versões)
     - Poetry
+
 
 ### Iniciando o projeto
 
@@ -96,6 +114,7 @@ http://localhost:5000/openapi/rapidoc
 
 ### Mais comandos
 
+
 ## Listar os comandos mais usados:
 
 ```bash
@@ -112,6 +131,7 @@ up        Up the services containers.
 down      Down the services containers.
 ```
 
+
 ## Acessando o banco
 
 ```bash
@@ -121,6 +141,7 @@ use swgurudb
 show collections
 db.film.find()
 ```
+
 
 ## Rodando os tests
 
@@ -139,6 +160,7 @@ http://localhost:5000/openapi/rapidoc
 
 ## LINKS
 - https://swapi.dev/
+
 ## MONGODB
 - https://snyk.io/advisor/python/mongoengine/functions/mongoengine.fields.ListField
 - https://docs.mongoengine.org/guide/querying.html
@@ -147,6 +169,7 @@ http://localhost:5000/openapi/rapidoc
 - https://www.mongodb.com/resources/products/compatibilities/setting-up-flask-with-mongodb
 - https://www.mongodb.com/pt-br/docs/manual/reference/database-references/
 - https://www.mongodb.com/developer/products/mongodb/cheat-sheet/
+
 ## API
 - https://luolingchun.github.io/flask-openapi3/latest/Example/#simple-demo
 
@@ -163,6 +186,5 @@ Out[13]: 2
 
 # Filtra os planetas que tem o filme 66e21eb69e704403325c1829 e que seja diferene do planeta 2
 query = Planet.objects.filter(films__contains='66e21eb69e704403325c1829').filter(id__nin=[str(planet_two.id)])
-
 
 ```

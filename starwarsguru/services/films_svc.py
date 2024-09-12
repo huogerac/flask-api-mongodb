@@ -22,6 +22,7 @@ def create_film(title: str, director: str, release_date: str, planets: list):
     try:
 
         # TODO: Deve existir uma forma de fazer o mongo fazer esta validação
+        planets = list(set(planets))
         for planet_id in planets:
             Planet.objects.get(id=planet_id)
 
@@ -55,6 +56,7 @@ def update_film(_id: str, title: str, director: str, release_date: str, planets:
     try:
 
         # TODO: Deve existir uma forma de fazer o mongo fazer esta validação
+        planets = list(set(planets))
         planets_ref = []
         for planet_id in planets:
             p = Planet.objects.get(id=planet_id)

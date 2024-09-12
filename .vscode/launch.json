@@ -27,7 +27,7 @@
             "request": "launch",
             "module": "pytest",
             "args": [
-                "tests/test_api_planets_create.py"
+                "tests/api/test_api_planets_create_mock.py"
             ],
             "justMyCode": true
         },

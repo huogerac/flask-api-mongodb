@@ -1,6 +1,6 @@
 from unittest.mock import ANY
 from bson import ObjectId
-from starwarsguru.models.planets import Planet, Film
+from starwarsguru.models.starwars import Planet, Film
 from starwarsguru.services import films_svc
 
 

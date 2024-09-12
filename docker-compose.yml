@@ -17,3 +17,12 @@ services:
       - "27017:27017"
     volumes:
       - ./.mongodb_data:/data/db
+
+  mongo_test:
+    image: mongo
+    env_file:
+      - .env.tests
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./.mongodb_data_test:/data/db

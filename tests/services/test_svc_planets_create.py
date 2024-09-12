@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import ANY
 from starwarsguru.exceptions import BusinessError, ConflictError
 from starwarsguru.services import planet_svc
-from starwarsguru.models.planets import Planet
+from starwarsguru.models.starwars import Planet
 
 
 def test_should_create_a_new_planet(db):

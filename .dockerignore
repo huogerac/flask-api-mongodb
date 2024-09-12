@@ -1,2 +1,3 @@
 .mongodb_data/
+.mongodb_data_test/
 .git/

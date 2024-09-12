@@ -1,6 +1,6 @@
 from unittest.mock import ANY
 from bson import ObjectId
-from starwarsguru.models.planets import Planet
+from starwarsguru.models.starwars import Planet
 
 
 def test_should_create_a_new_film(client):

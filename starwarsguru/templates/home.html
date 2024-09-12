@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- 
+    CREDITS:
+    https://codepen.io/christopherkade/pen/rJVPjz
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars GURU API</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #0f0f0f;
+        }
+
+        .content {
+            padding: 20px;
+            color: #fff;
+        }
+
+        .star {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background-color: white;
+        }
+
+        /* Set the animation, color, size and hide the text */
+        .intro {
+            position: absolute;
+            top: 30%;
+            left: 35%;
+            z-index: 1;
+            animation: intro 3s ease-out 2s;
+            color: #c3db3f;
+            font-weight: 400;
+            font-size: 300%;
+            opacity: 0;
+        }
+
+        @keyframes intro {
+            0% {
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+
+        /* Set the scrolling animation and position it */
+        #content {
+            animation: scroll 100s linear 16s;
+            position: absolute;
+            top: 100%;
+        }
+
+        #title,
+        #subtitle {
+            text-align: center;
+        }
+
+        @keyframes scroll {
+            0% {
+                top: 100%;
+            }
+
+            100% {
+                top: -170%;
+            }
+        }
+
+        .footer {
+            color: #cdcdcd;
+            position: fixed;
+            bottom: 10px;
+            padding-left: 12px;
+            background-color: #1b1b1b;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="intro">
+        A long time ago, in a galaxy far,<br> far away....
+    </section>
+
+    <section class="content">
+        <h2>Links</h2>
+        <h2>
+            <a href="http://localhost:5000/openapi/rapidoc">api docs</a>
+        </h2>
+
+    </section>
+
+    <footer class="footer">
+        <p>by Roger Camargo - <a href="https://github.com/huogerac/">huogerac</a> </p>
+    </footer>
+
+
+    <script>
+        // Sets the number of stars we wish to display
+        const numStars = 222;
+
+        // For every star we want to display
+        for (let i = 0; i < numStars; i++) {
+            let star = document.createElement("div");
+            star.className = "star";
+            var xy = getRandomPosition();
+            star.style.top = xy[0] + 'px';
+            star.style.left = xy[1] + 'px';
+            document.body.append(star);
+        }
+
+        // Gets random x, y values based on the size of the container
+        function getRandomPosition() {
+            var y = window.innerWidth;
+            var x = window.innerHeight;
+            var randomX = Math.floor(Math.random() * x);
+            var randomY = Math.floor(Math.random() * y);
+            return [randomX, randomY];
+        }
+    </script>
+</body>
+
+</html>

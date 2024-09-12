@@ -1,5 +1,5 @@
 import json
-from flask import jsonify
+from flask import jsonify, render_template
 from flask_openapi3 import OpenAPI, Info
 from flask.wrappers import Response as FlaskResponse
 from pydantic_core import ValidationError
@@ -49,6 +49,13 @@ def init_api_error_handling(app: OpenAPI):
         return jsonify(error), 409
 
 
+def init_templates(app):
+
+    @app.route('/')
+    def home():
+        return render_template('home.html')
+
+
 def create_app():
 
     info = Info(title="Star Wars API", version="0.1.0")
@@ -64,6 +71,8 @@ def create_app():
     app.register_api(api_base)
     app.register_api(api_planets)
     app.register_api(api_films)
+
+    init_templates(app)
 
     return app
 

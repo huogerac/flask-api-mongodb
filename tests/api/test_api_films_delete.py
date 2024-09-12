@@ -1,5 +1,5 @@
 from bson import ObjectId
-from starwarsguru.models.planets import Film
+from starwarsguru.models.starwars import Film
 
 
 def test_should_return_invalid_ID_for_unregistered_film(client):

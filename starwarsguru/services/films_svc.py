@@ -1,7 +1,7 @@
 from datetime import datetime
 from mongoengine.errors import NotUniqueError
 from starwarsguru.exceptions import BusinessError, ConflictError
-from starwarsguru.models.planets import Film, Planet
+from starwarsguru.models.starwars import Film, Planet
 
 
 def get_film(_id):

@@ -1,6 +1,6 @@
 import pytest
 from starwarsguru.app import create_app
-from starwarsguru.models.planets import Planet, Film
+from starwarsguru.models.starwars import Planet, Film
 
 
 @pytest.fixture

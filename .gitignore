@@ -2,6 +2,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .mongodb_data/
+.mongodb_data_test/
 .coverage/
 coverage.xml
 htmlcov/

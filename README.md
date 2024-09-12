@@ -1,20 +1,134 @@
-## Commands
+# 🦝 Star Wars Guru API
 
-poetry run task --list
+## ✅ Execução do projeto
 
-poetry run task lint
-OR
-task lint
+- [✅] Setup do projeto com Poetry
+- [✅] Endpoint /api/status usando swagger
+- [✅] 1o. Test na API de status com Pytest
+- [✅] Variáveis via .env com dotenv
+- [✅] Subir mongo com docker-compose
+- [✅] Criar tests de API do Planet
+- [✅] Criar services Planet para salvar na collection do mongo
 
 
+## 📂 Organização
+
+```mermaid
+classDiagram
+    direction LR
+    API --> Services : Regras
+    API *-- Schemas
+    Services --> ORM
+    ORM --> Database
+
+    DEV
+
+    API : openapi3
+    API : swagger/RapiDoc
+    Schemas : pydantic
+    Schemas : typing
+    Services : Python 🐍
+    Database : MongoDB
+    ORM : mongoengine
+
+    DEV : poetry, taskpy
+    DEV : docker
+    DEV : dotenv (.env|settings.py)
+    DEV : black, flake8
+    DEV : pytest
+    DEV : ipython, taskpy
+    DEV : .vscode|launch|settings|profile
+
+```
+
+## ⭐ Stack & Motivações
+
+- **Flask | MongoDB | MongoEngine**: Utilizar o que estava no desafio + Aprender Mongo
+- **API | openapi3 | Pydantic**: Utilizar stack que facilita migração para FastAPI ou Django Ninja
+- **Camada de Services**: Utilizando 🐍 Python Puro -> Mais fácil de testar, migrar para outra stack, exportar para um micro serviço etc...
+- **Services | "Arq. Hexagonal"**: Em resumo manter uma forma onde uma forma tem um isolamento, por exemplo, não passar objetos do ORM para a camada de API, não passar Schema da API para a camada de serviço.
+- **Docker**: Facilita muito subir mongo (ou qualquer outra dependência) localmente, Ambiente Local mais próximo de PROD
+- **Black, Linter**: Melhorar qualidade código, diminuir problemas de merge
+
+
+## 🏁 Iniciando
+
+### Requisitos:
+
+- Com docker: Teoricamente, apenas docker e docker compose
+- "Sem docker": Subir apenas o banco no docker e flask local
+    - Python 3.11 (Não testei em outras versões)
+    - Poetry
+
+### Iniciando o projeto
+
+```bash
+##1  Clonar repo
+git clone https://github.com/huogerac/flask-api-mongodb.git
+cd flask-api-mongodb/
+
+##2 Virtual env e instalar dependências
+poetry config virtualenvs.in-project true  ## para criar a pasta .venv 
+poetry shell
+poetry install
+
+🌈 DICA: veja os comandos usados no projeto (taskpy)
+poetry run task --list 
+
+##3 Subir o banco de dados (Mongodb) | Veja o .env para ver as variáveis
+task up 
+## OU pode rodar: 'docker compose up -d --build'
+## Garanta que o mongo está rodando
+docker ps
+docker compose logs -f mongo
+
+##4 Agora só rodar o flask
+task runserver
+## OU pode rodar: 'flask --app starwarsguru/app run'
+
+🎉 DONE!
+
+##5 Agora só acessar as URLS: 
+http://localhost:5000
+http://localhost:5000/openapi/rapidoc
+
+```
+
+### Mais comandos
+
+## Listar os comandos mais usados:
+
+```bash
+❯ poetry run task --list
+active    Active the virtualenv.
+format    Format the code.
+lint      Run the linter to check PEP8.
+test      Run the tests and fail in the first one.
+test-cov  Run the tests and give us the test coverage report.
+runserver Run the flask api server
+shell     Run the interactive shell
+dbshell   Run the mongo shell
+up        Up the services containers.
+down      Down the services containers.
+```
+
+## Acessando o banco
+
+```bash
 task dbshell
+
 use swgurudb
 show collections
 db.film.find()
+```
 
+## Rodando os tests
 
-flask --app starwarsguru/app run   # usa .env
-pytest                             # usa .env.tests
+```bash
+pytest 
+# OU
+task test-cov
+```
 
 
 ## URLS

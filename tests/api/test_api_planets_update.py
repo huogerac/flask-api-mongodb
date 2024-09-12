@@ -1,5 +1,5 @@
 from unittest.mock import ANY
-from starwarsguru.models.planets import Planet
+from starwarsguru.models.starwars import Planet
 
 
 def test_should_update_existing_planet(client):

@@ -1,7 +1,7 @@
 from flask_openapi3 import APIBlueprint
 from flask_openapi3 import Tag
 
-from ..schemas.planet_schemas import Planet, PlanetIn, PlanetList, Error, IdPath
+from ..schemas.starwars import Planet, PlanetIn, PlanetList, Error, IdPath
 from ..services import planet_svc
 
 tag = Tag(name="planets", description="Planets")

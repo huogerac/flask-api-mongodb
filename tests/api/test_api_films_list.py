@@ -1,5 +1,5 @@
 from unittest.mock import ANY
-from starwarsguru.models.planets import Planet, Film
+from starwarsguru.models.starwars import Planet, Film
 
 
 def test_should_return_an_empty_films_list(client):
